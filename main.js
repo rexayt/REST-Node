@@ -1,7 +1,7 @@
 const bancoDeDados = require('./bd')
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 
 app.get('/:tabela',async (req, res) => {
     let tabela = req.params.tabela
