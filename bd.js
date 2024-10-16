@@ -33,5 +33,3 @@ const getBanco = async (tabela, select = '*', where = null) => {
 }
 
 module.exports = {getBanco, insertBanco}
-
-getBanco('Teste').then(console.log)
