@@ -5,9 +5,8 @@ const port = process.env.PORT || 3000;
 
 app.get('/:tabela',async (req, res) => {
     let tabela = req.params.tabela
-    let resp = bancoDeDados.getBanco(tabela)
-    console.log(resp)
-    res.send({resp})
+    let resp = await bancoDeDados.getBanco(tabela).then(resposta => resposta)
+    res.send(JSON.stringify(resp))
 })
 
 
