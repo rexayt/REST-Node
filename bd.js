@@ -13,16 +13,6 @@ const knex = require('knex')({
     }
 })
 
-const insertBanco = async (tabela, objeto) => {
-    console.log(objeto)
-    resposta = await knex(tabela)
-        .insert(objeto)
-        .then(() => `Registro ${JSON.stringify(objeto)} adicionado à Tabela: ${tabela}`)
-        .catch(err => `${err}`)
-        
-    await knex.destroy()
-    return resposta
-}
 
 const getBanco = async (tabela, select = '*', where = null) => {
     let resposta = where === null ? 
@@ -34,4 +24,26 @@ const getBanco = async (tabela, select = '*', where = null) => {
     return resposta
 }
 
-module.exports = {getBanco, insertBanco}
+const insertBanco = async (tabela, objeto) => {
+    let resposta = await knex(tabela)
+        .insert(objeto)
+        .then(() => `Registro ${JSON.stringify(objeto)} adicionado à Tabela: ${tabela}`)
+        .catch(err => `${err}`)
+    await knex.destroy()
+    return resposta
+}
+
+const deleteBanco = async (tabela, where,) => {
+
+    let resposta = await knex(tabela).where(where).del()
+
+    return resposta
+}
+
+const updateBanco = async (tabela, where, update) => {
+    let resposta = await knex(tabela).where(where).update(update)
+    console.log(resposta)
+    return resposta
+}
+
+module.exports = {getBanco, insertBanco, deleteBanco, updateBanco}
