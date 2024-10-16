@@ -7,6 +7,7 @@ app.get('/:tabela',async (req, res) => {
     let tabela = req.params.tabela
     let resp = bancoDeDados.getBanco(tabela).then(resposta => JSON.stringify(resposta))
     res.send(resp)
+    console.log(resp)
 })
 
 
