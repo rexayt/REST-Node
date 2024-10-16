@@ -14,22 +14,22 @@ const knex = require('knex')({
 })
 
 const insertBanco = async (tabela, objeto) => {
-    await knex(tabela).insert(objeto)
-    await knex.destroy().then(console.log('Processo finalizado'))
-    
+    resposta = await knex(tabela).insert(objeto)
+    await knex.destroy()
+    return resposta
 }
 
 const getBanco = async (tabela, select = '*', where = null) => {
+    let resposta = []
     if (where == null){
-        await knex.select(select).from(tabela).then(console.log)
+        resposta = await knex.select(select).from(tabela)
     }else{
-        await knex.select(select).from(tabela).where().then(console.log)
+        resposta = await knex.select(select).from(tabela).where()
     }
     
+    await knex.destroy()
 
-    await knex.destroy().then(console.log('Processo finalizado'))
+    return resposta
 }
 
 module.exports = {getBanco, insertBanco}
-
-getBanco('Teste')
