@@ -2,5 +2,17 @@
   "dependencies": {
     "knex": "^3.1.0",
     "tedious": "^18.6.1"
-  }
+  },
+  "name": "rest-node",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node --env-file .env main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

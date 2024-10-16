@@ -1,33 +1,35 @@
-const fs = require('fs')
-criarArquivoNoErro = err => fs.appendFile(__dirname + '/errosLog.txt', `Erro:\n ${err}\r\n\n`, erro => null)
-
 const knex = require('knex')({
     client: 'mssql',
     connection: {
-        user: 'greenplusadmin',
-        password: '554HLLST@',
-        server: 'green-plus-server.database.windows.net',
-        port: 1433,
-        database: 'Green Plus',
-        requestTimeout: 300,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        server: process.env.SERVER,
+        port: parseInt(process.env.PORT),
+        database: process.env.DATABASE,
+        requestTimeout: 30000,
         options: {
             encrypt: true
         }
     }
 })
 
-const insert = (tabela, objeto) => {
-    knex(tabela).insert(objeto)
-    .then(console.log('Finalizado'))
-    .catch(err => console.log(err))
+const insertBanco = async (tabela, objeto) => {
+    await knex(tabela).insert(objeto)
+    await knex.destroy().then(console.log('Processo finalizado'))
+    
 }
 
-insert('User', {
-    tipo: false, 
-    nome: 'Gayzão',
-    email: 'Gayzao@gaymail.com',
-    cargo: 'Putinha da empresa',
-    grupos: 'Sla',
-    username: 'Gayzao1234',
-    senha: '1234'
-})
+const getBanco = async (tabela, select = '*', where = null) => {
+    if (where == null){
+        await knex.select(select).from(tabela).then(console.log)
+    }else{
+        await knex.select(select).from(tabela).where().then(console.log)
+    }
+    
+
+    await knex.destroy().then(console.log('Processo finalizado'))
+}
+
+module.exports = {getBanco, insertBanco}
+
+getBanco('Teste')
