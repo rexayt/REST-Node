@@ -4,7 +4,7 @@ const knex = require('knex')({
         user: process.env.USER,
         password: process.env.PASSWORD,
         server: process.env.SERVER,
-        port: parseInt(process.env.PORT),
+        port: parseInt(process.env.PORTA),
         database: process.env.DATABASE,
         requestTimeout: 30000,
         options: {
