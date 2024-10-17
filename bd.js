@@ -15,10 +15,10 @@ const knex = require('knex')({
 
 
 
-const getBanco = async (tabela, select = '*', where = null) => {
+const getBanco = async (tabela, select = '*', where = null, limite = 100) => {
     let resposta = where === null ? 
-        await knex(tabela).select(select)
-        :await knex(tabela).select(select).where(where)
+        await knex(tabela).select(select).limit(limite)
+        :await knex(tabela).select(select).where(where).limit(limite)
 
     return resposta
 }

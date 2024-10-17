@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 app.get('/:query',async (req, res) => {
     let objeto = JSON.parse(req.params.query) // Deve receber um JSON {"tabela":tabela <- Obrigatório, "select": {"coluna"...},"where":{"coluna":"valor"...}}
     let resp = await bancoDeDados
-        .getBanco(objeto.tabela, objeto?.select || '*', objeto?.where || null)
+        .getBanco(objeto.tabela, objeto?.select || '*', objeto?.where || null, objeto?.limite)
         .then(resposta => resposta)
 
     res.send(JSON.stringify(resp))
