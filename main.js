@@ -3,8 +3,6 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 
-app.enable('delete')
-
 app.get('/:query',async (req, res) => {
     let objeto = JSON.parse(req.params.query) // Deve receber um JSON {"tabela":tabela <- Obrigatório, "select": {"coluna"...},"where":{"coluna":"valor"...}}
     let resp = await bancoDeDados

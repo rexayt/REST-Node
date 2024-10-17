@@ -17,7 +17,7 @@ const knex = require('knex')({
 const getBanco = async (tabela, select = '*', where = null) => {
     let resposta = where === null ? 
         await knex(tabela).select(select)
-        :await knex(tabela).from(tabela).select(select).where(where)
+        :await knex(tabela).select(select).where(where)
 
     await knex.destroy()
 
@@ -36,13 +36,13 @@ const insertBanco = async (tabela, objeto) => {
 const deleteBanco = async (tabela, where,) => {
 
     let resposta = await knex(tabela).where(where).del()
-
+    await knex.destroy()
     return resposta
 }
 
 const updateBanco = async (tabela, where, update) => {
     let resposta = await knex(tabela).where(where).update(update)
-    console.log(resposta)
+    await knex.destroy()
     return resposta
 }
 
