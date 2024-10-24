@@ -16,10 +16,10 @@ app.get('/:query',async (req, res) => {
         // Faz uma consulta com o banco de dados
         // Makes a query inside of the database
         await DB
-        .getBanco(object)
-        .then(resposta => res.send(JSON.stringify(resposta)))
-        .catch(err => res.send(errors.ultimateErrorSolver(object, DB.getBanco, err)))   // Caso dê erro, ele retorna uma string para o client
-                                                                                        // In case of error, it will be returned a string to the cliente
+            .getBanco(object)
+            .then(response => res.send(JSON.stringify(response)))
+            .catch(err => errors.ultimateErrorSolver(object, DB.getBanco, err, res))   // Caso dê erro, ele retorna uma string para o cliente
+                                                                                            // In case of error, it will be returned a string to the client
     } 
     catch (err) {
         res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
@@ -27,6 +27,7 @@ app.get('/:query',async (req, res) => {
 
 
 })
+
 
 app.post('/:post', async (req, res) => {
     let object = req.params.post    // Deve receber um Json {"tabela": tabela, "insert":{"coluna","valor"...}}
@@ -40,9 +41,9 @@ app.post('/:post', async (req, res) => {
         
         await DB
                 .insertBanco(object)
-                .then(res.send.resp)
-                .catch(err => errors.ultimateErrorSolver(object, DB.insertBanco, err, res))     // Caso dê erro, ele retorna uma string para o client
-                                                                                                // In case of error, it will be returned a string to the cliente
+                .then(response => res.send(JSON.stringify(response)))
+                .catch(err => errors.ultimateErrorSolver(object, DB.insertBanco, err, res))     // Caso dê erro, ele retorna uma string para o cliente
+                                                                                                // In case of error, it will be returned a string to the client
     }
     catch (err) {
         res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
@@ -64,8 +65,8 @@ app.patch('/:update',async (req, res) => {
         await DB
             .updateBanco(object.tabela, object.where, object.update)
             .then(response => res.send(`${response} linhas foram modificadas`))
-            .catch(err => errors.ultimateErrorSolver(object, DB.updateBanco, err, res))     // Caso dê erro, ele retorna uma string para o client
-                                                                                            // In case of error, it will be returned a string to the cliente
+            .catch(err => errors.ultimateErrorSolver(object, DB.updateBanco, err, res))     // Caso dê erro, ele retorna uma string para o cliente
+                                                                                            // In case of error, it will be returned a string to the client
     } 
     catch (err) {
         res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
@@ -87,8 +88,8 @@ app.delete('/:delete', async(req, res) => {
         await DB
                 .deleteBanco(object.tabela, object.where)
                 .then(response => res.send(`${response} linhas foram deletadas`))
-                .catch(res.send(errors.ultimateErrorSolver(object, DB.deleteBanco, err, res)))  // Caso dê erro, ele retorna uma string para o client
-                                                                                                // In case of error, it will be returned a string to the cliente
+                .catch(err => errors.ultimateErrorSolver(object, DB.deleteBanco, err, res))  // Caso dê erro, ele retorna uma string para o cliente
+                                                                                                // In case of error, it will be returned a string to the client
     } catch (err) {
         res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
     }

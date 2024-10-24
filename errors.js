@@ -1,5 +1,7 @@
 const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas = 1) => {
+    console.log(error)
     let resposta = 'O servidor obteve um erro inesperado'
+
     if (error.code === 'ETIMEOUT') {
         console.log(error.number)
         if (tentativas === 4) {
@@ -9,6 +11,10 @@ const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas 
         resposta = await funcao(object).catch(err => ultimateErrorSolver(object, funcao, err, ++tentativas))
     } 
 
+    else if (error.name === 'ReferenceError' && object.tabela.toLowerCase() === 'user') {
+        resposta = `Erro na consulta, faltam parâmetros para a consulta, o JSON deveria ser { "tabela": "User", "where": { "username":"username" } }`
+    }
+    
     else if (error.message.includes('The query is empty')) {
         resposta = `A query do objeto JSON está vazia`
     }
@@ -40,7 +46,6 @@ const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas 
         }
         
     }
-    
 
     res.send(resposta)
 }
