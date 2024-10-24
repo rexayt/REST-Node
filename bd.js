@@ -15,19 +15,29 @@ const knex = require('knex')({
 
 
 
-const getBanco = async (tabela, select = '*', where = null, limite = 100) => {
+const getBanco = async (object) => {
+    const table = object.tabela
+    const select = object.select ? object.select : '*'
+    const limite = object.limite ? object.limite : 100
+    const where = object.where ? object.where : null
+
     let resposta = where === null ? 
-        await knex(tabela).select(select).limit(limite)
-        :await knex(tabela).select(select).where(where).limit(limite)
+        await knex(table).select(select).limit(limite)
+        :await knex(table).select(select).where(where).limit(limite)
 
     return resposta
 }
 
-const insertBanco = async (tabela, objeto) => {
-    let resposta = await knex(tabela)
-        .insert(objeto)
-        .then(() => `Registro ${JSON.stringify(objeto)} adicionado à Tabela: ${tabela}`)
-        .catch(err => `${err}`)
+const insertBanco = async (object) => {
+    const table = object.tabela
+    const insert = object.insert
+
+    let resposta = await knex(table)
+        .insert(insert, ['ID'])
+        .then((id) => `A sua solicitação foi inserida na tabela: ${table}, com o ID: ${id[0].ID}`)
+
+    console.log(resposta)
+
     return resposta
 }
 
