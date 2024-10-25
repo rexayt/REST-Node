@@ -35,10 +35,10 @@ const getBanco = async (object) => {
         }
         resposta = await knex(table).select(['username','senha']).where(where).limit(1).then(query => {
             if (senha === query[0].senha) {
-                return 1
+                return {status: 1} 
             }
             else {
-                return 0 
+                return {status: 0} 
             }
         })
     }
