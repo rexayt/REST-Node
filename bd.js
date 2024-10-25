@@ -61,13 +61,17 @@ const insertBanco = async (object) => {
     return resposta
 }
 
-const deleteBanco = async (tabela, where,) => {
-
+const deleteBanco = async (object) => {
+    let tabela = object.tabela
+    let where = object.where
     let resposta = await knex(tabela).where(where).del()
     return resposta
 }
 
-const updateBanco = async (tabela, where, update) => {
+const updateBanco = async (object) => {
+    let tabela = object.tabela
+    let where = object.where
+    let update = object.update
     let resposta = await knex(tabela).where(where).update(update)
     return resposta
 }
