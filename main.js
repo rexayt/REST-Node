@@ -79,6 +79,7 @@ app.patch('/:update',async (req, res) => {
 // Function used to delete some row on the data base
 app.delete('/:delete', async(req, res) => {
     let object = req.params.delete
+    console.log(object)
 
     // Tentativa de transformar o JSON em objeto
     // Attempt of transformation a JSON into an Object
