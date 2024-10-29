@@ -63,7 +63,7 @@ app.patch('/:update',async (req, res) => {
 
 
         await DB
-            .updateBanco(object.tabela, object.where, object.update)
+            .updateBanco(object)
             .then(response => res.send(`${response} linhas foram modificadas`))
             .catch(err => errors.ultimateErrorSolver(object, DB.updateBanco, err, res))     // Caso dê erro, ele retorna uma string para o cliente
                                                                                             // In case of error, it will be returned a string to the client
@@ -87,7 +87,7 @@ app.delete('/:delete', async(req, res) => {
         object = JSON.parse(object)
 
         await DB
-                .deleteBanco(object.tabela, object.where)
+                .deleteBanco(object)
                 .then(response => res.send(`${response} linhas foram deletadas`))
                 .catch(err => errors.ultimateErrorSolver(object, DB.deleteBanco, err, res))  // Caso dê erro, ele retorna uma string para o cliente
                                                                                                 // In case of error, it will be returned a string to the client
