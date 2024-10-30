@@ -16,6 +16,14 @@ const knex = require('knex')({
 
 
 
+const getUser = async(object) => {
+    const table = 'User'
+    const where = object ? object : {}
+    let resposta = knews(table).where(where)
+
+    return resposta
+}
+
 const getBanco = async (object) => {
     const table = object.tabela
     const select = object.select ? object.select : '*'
@@ -76,4 +84,4 @@ const updateBanco = async (object) => {
     return resposta
 }
 
-module.exports = {getBanco, insertBanco, deleteBanco, updateBanco}
+module.exports = {getBanco, insertBanco, deleteBanco, updateBanco, getUser}

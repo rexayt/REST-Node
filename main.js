@@ -4,6 +4,21 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 
+app.get('/django', async (req, res) => {
+    let object = req.params.query
+
+    try {
+        object = JSON.parse(object)
+        await DB
+            .getUser(object)
+            .then(response => res.send(JSON.stringify(response)))
+            .catch(err => res.send(errors.ultimateErrorSolver(object, DB.getUser(object, DB.getUser, err, res))))
+    }
+    catch (err) {
+        res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
+    } 
+})
+
 app.get('/:query',async (req, res) => {
     let object = req.params.query   // Deve receber um JSON {"tabela":tabela <- Obrigatório, "select": {"coluna"...},"where":{"coluna":"valor"...}}
                                     // Must receive an JSON {"tabela":tabela <- required, "select": {"coluna"...},"where":{"coluna":"valor"...}}
