@@ -47,7 +47,7 @@ const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas 
         
     }
 
-    res.send(resposta)
+    resposta
 }
 
 module.exports = {ultimateErrorSolver}

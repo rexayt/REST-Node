@@ -3,10 +3,14 @@ const errors = require('./errors')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
+const bodyParser = require('body-parser')
 
-app.get('/django', async (req, res) => {
-    let object = req.params.query
+app.use(bodyParser.urlencoded({ extended: true }))
 
+
+
+app.post('/django/:coiso', async (req, res) => {
+    let object = req.params.coiso
     try {
         object = JSON.parse(object)
         await DB
@@ -94,7 +98,7 @@ app.patch('/:update',async (req, res) => {
 // Function used to delete some row on the data base
 app.delete('/:delete', async(req, res) => {
     let object = req.params.delete
-    console.log(object)
+
 
     // Tentativa de transformar o JSON em objeto
     // Attempt of transformation a JSON into an Object
@@ -112,4 +116,6 @@ app.delete('/:delete', async(req, res) => {
 
 })
 
-app.listen(port, () => {})
+app.listen(port, () => {
+    console.log('Ouvindo')
+})
