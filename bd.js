@@ -18,7 +18,13 @@ const knex = require('knex')({
 
 const getUser = async(object) => {
     const table = 'User'
-    let resposta = knex(table)
+    const where = object.where ? object.where : undefined
+    if (where !== undefined) {
+        let resposta = knex(table).where(where)
+
+    }else {
+        let resposta = knex(table)
+    }
 
     return resposta
 }
