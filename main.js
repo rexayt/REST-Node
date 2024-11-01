@@ -1,12 +1,13 @@
 const DB = require('./bd')
 const errors = require('./errors')
+const cors = require('cors')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({ extended: true }))
-
+app.use(cors())
 
 
 app.post('/django/:coiso', async (req, res) => {
@@ -51,7 +52,7 @@ app.get('/:query',async (req, res) => {
 app.post('/:post', async (req, res) => {
     let object = req.params.post    // Deve receber um Json {"tabela": tabela, "insert":{"coluna","valor"...}}
                                     // Must receive an JSON {"tabela": tabela, "insert":{"coluna","valor"...}}
-
+    console.log(object)
     // Tentativa de transformar o JSON em objeto
     // Attempt of transformation a JSON into an Object
     try {
