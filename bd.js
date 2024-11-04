@@ -1,4 +1,3 @@
-const { json } = require('express')
 const md5 = require('md5')
 const knex = require('knex')({
     client: 'mssql',
@@ -26,7 +25,6 @@ const getUser = async(object) => {
     }else {
         resposta = await knex(table).then(resposta)
     }
-    console.log(resposta)
     return resposta
 }
 
@@ -70,7 +68,6 @@ const insertBanco = async (object) => {
     let resposta = await knex(table)
         .insert(insert)
         .then(() => `A sua solicitação ${JSON.stringify(insert)} foi inserida na tabela: ${table}`)
-
 
     return resposta
 }

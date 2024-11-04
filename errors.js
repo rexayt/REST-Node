@@ -1,11 +1,10 @@
-const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas = 1) => {
+const ultimateErrorSolver = async (object, funcao, error = null, tentativas = 1) => {
     let resposta = 'O servidor obteve um erro inesperado'
 
     if (error.code === 'ETIMEOUT') {
         if (tentativas === 4) {
             return 'O banco de dados demorou muito para responder, tente novamente.'
         }
-        setTimeout()
         resposta = await funcao(object).catch(err => setTimeout(ultimateErrorSolver(object, funcao, err, ++tentativas), 17000))
     } 
 
@@ -44,8 +43,7 @@ const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas 
         }
         
     }
-
-    resposta
+    return JSON.stringify(resposta)
 }
 
 module.exports = {ultimateErrorSolver}
