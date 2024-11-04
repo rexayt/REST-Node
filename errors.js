@@ -1,14 +1,12 @@
 const ultimateErrorSolver = async (object, funcao, error = null,res, tentativas = 1) => {
-    console.log(error)
     let resposta = 'O servidor obteve um erro inesperado'
 
     if (error.code === 'ETIMEOUT') {
-        console.log(error.number)
         if (tentativas === 4) {
             return 'O banco de dados demorou muito para responder, tente novamente.'
         }
-
-        resposta = await funcao(object).catch(err => ultimateErrorSolver(object, funcao, err, ++tentativas))
+        setTimeout()
+        resposta = await funcao(object).catch(err => setTimeout(ultimateErrorSolver(object, funcao, err, ++tentativas), 17000))
     } 
 
     else if (error.name === 'ReferenceError' && object.tabela.toLowerCase() === 'user') {
