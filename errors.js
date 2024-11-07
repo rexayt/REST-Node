@@ -1,6 +1,6 @@
-const ultimateErrorSolver = async (object, funcao, error = null, tentativas = 1) => {
+const ultimateErrorSolver = async (object, funcao, error, tentativas = 1) => {
     let resposta = 'O servidor obteve um erro inesperado'
-
+    console.log(error)
     if (error.code === 'ETIMEOUT') {
         if (tentativas === 4) {
             return 'O banco de dados demorou muito para responder, tente novamente.'

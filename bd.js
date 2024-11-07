@@ -21,10 +21,12 @@ const getUser = async(object) => {
     let resposta = ''
     if (where !== undefined) {
         resposta = await knex(table).select('*').where(where).then(resposta)
+        console.log(resposta)
 
     }else {
         resposta = await knex(table).then(resposta)
-    }
+        console.log(resposta)
+    } 
     return resposta
 }
 
@@ -34,11 +36,10 @@ const getBanco = async (object) => {
     const limite = object.limite ? object.limite : 100
     const where = object.where ? object.where : null
     let resposta = ''
-
     if (table.toLowerCase() !== 'user'){
         resposta = where === null ? 
-            await knex(table).select(select).limit(limite)
-            :await knex(table).select(select).where(where).limit(limite)
+        await knex(table).select(select).limit(limite)
+        :await knex(table).select(select).where(where).limit(limite)
     }
     else{
         const senha = object.senha
@@ -54,7 +55,8 @@ const getBanco = async (object) => {
             }
         })
     }
-    return resposta
+    
+    return JSON.stringify(resposta)
 }
 
 

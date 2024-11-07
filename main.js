@@ -17,7 +17,7 @@ app.post('/django/:coiso', async (req, res) => {
         await DB
             .getUser(object)
             .then(response => res.send(JSON.stringify(response)))
-            .catch(err => res.send(errors.ultimateErrorSolver(object, DB.getUser(object, DB.getUser, err, res))))
+            .catch(err => res.send(errors.ultimateErrorSolver(object, DB.getUser, err)))
     }
     catch (err) {
         res.send(`Erro em transformar o JSON favor verificar, mensagem do erro: "${err.message}"`)
