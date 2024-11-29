@@ -56,6 +56,7 @@ const getBanco = async (object) => {
         })
     }
     
+    console.log(resposta)
     return JSON.stringify(resposta)
 }
 
