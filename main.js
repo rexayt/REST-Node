@@ -27,7 +27,7 @@ app.post('/django/:coiso', async (req, res) => {
 app.get('/:query',async (req, res) => {
     let object = req.params.query   // Deve receber um JSON {"tabela":tabela <- Obrigatório, "select": {"coluna"...},"where":{"coluna":"valor"...}}
                                     // Must receive an JSON {"tabela":tabela <- required, "select": {"coluna"...},"where":{"coluna":"valor"...}}
-    
+    console.log(object)
     // Tentativa de transformar o JSON em objeto
     // Attempt of transformation a JSON into an Object
     try {
@@ -98,7 +98,7 @@ app.patch('/:update',async (req, res) => {
 // Function used to delete some row on the data base
 app.delete('/:delete', async(req, res) => {
     let object = req.params.delete
-
+    console.log(object)
 
     // Tentativa de transformar o JSON em objeto
     // Attempt of transformation a JSON into an Object
